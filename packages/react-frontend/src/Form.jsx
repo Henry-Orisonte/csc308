@@ -7,6 +7,11 @@ function Form(props) {
         job: ""
     });
 
+    function submitForm(person) {
+        props.handleSubmit(person);
+        setPerson({ name: "", job: "" });
+    }
+
     function handleChange(event) {
         const { name, value } = event.target;
         if (name === "job")
@@ -34,11 +39,6 @@ function Form(props) {
             <input type="button" value="Submit" onClick={submitForm} />
         </form>
     );
-
-    function submitForm() {
-        props.handleSubmit(person);
-        setPerson({ name: "", job: "" });
-    }
 
 }
 
