@@ -7,7 +7,7 @@ function Form(props) {
         job: ""
     });
 
-    function submitForm(person) {
+    function submitForm() {
         props.handleSubmit(person);
         setPerson({ name: "", job: "" });
     }
