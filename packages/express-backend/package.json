@@ -1,0 +1,15 @@
+{
+  "name": "express-backend",
+  "version": "1.0.0",
+  "description": "Express backend for csc308 project",
+  "type": "module",
+  "main": "backend.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Henry Orisonte",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
