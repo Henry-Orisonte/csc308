@@ -16,7 +16,6 @@ function MyApp() {
         setCharacters(updated);
     }
 
-
     function updateList(person) {
         postUser(person)
       .then(() => setCharacters([...characters, person]))
@@ -29,6 +28,8 @@ function MyApp() {
     const promise = fetch("http://localhost:8000/users");
     return promise;
 }
+
+
 
 useEffect(() => {
   fetchUsers()
