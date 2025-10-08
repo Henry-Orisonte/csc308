@@ -44,7 +44,7 @@ function MyApp() {
     })
     .then((response) => {
     if (response.status === 201) {
-      return response.json(); // <- get the user with the new ID
+      return response.json(); 
     } else {
       throw new Error("Failed to create user");
     }
