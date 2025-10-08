@@ -1,5 +1,5 @@
 // backend.js
-import express from "express";
+import express, { request } from "express";
 import cors from "cors";
 
 const app = express();
@@ -61,6 +61,10 @@ app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
 
+function CreateUserID() {
+  return Math.random().toString(36).substring(2, 8);
+}
+
 const findUserById = (id) =>
   users["users_list"].find((user) => user["id"] === id);
 
@@ -79,36 +83,53 @@ const addUser = (user) => {
   return user;
 };
 
-app.post("/users", (req, res) => {
-  const userToAdd = req.body;
-  addUser(userToAdd);
-  res.send();
-});
+const DeleteUser = (userId) => {
+  const userPosition = users["users_list"].findIndex((user) => user.id === userId);
+  if (userPosition !== -1) {
+    users["users_list"].splice(userPosition, 1); 
+    return true;
+  }
+  return false;
+
+}
 
 app.delete("/users/:id", (req, res) => {
   const userId = req.params.id;
-  users.users_list = users.users_list.filter(user => user.id !== userId);
-  res.status(200).send(); // send HTTP 200 OK
+  const deleted = DeleteUser(userId);
+   if (deleted) {
+    res.status(204).send(); // No content, successful delete
+  } else {
+    res.status(404).send({ error: "User not found" }); // User ID wasn't found
+  }
+
 });
+
+app.post("/users", (req, res) => {
+  const userToAdd = req.body;
+  userToAdd.id = CreateUserID()
+  addUser(userToAdd);
+  
+  res.status(201).send(userToAdd);
+});
+
+
 
 const findUserByNameandJob = (name, job) => {
   return users["users_list"].filter(
     (user) => user["name"] === name && user["job"] === job
   );
-}
+};
 
 app.get("/users", (req, res) => {
   const name = req.query.name;
   const job = req.query.job;
 
   if (name !== undefined && job !== undefined) {
-    let result = findUserByNameandJob(name,job)
+    let result = findUserByNameandJob(name, job);
     result = { users_list: result };
-    res.send(result); 
-  }else{
+    res.send(result);
+  } else {
     // No filters send -> return every user
-    res.send(users)
+    res.send(users);
   }
-
-    
 });
