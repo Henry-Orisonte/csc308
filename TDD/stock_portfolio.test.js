@@ -19,11 +19,27 @@ describe("My Portfolio", () => {
     const portfolio = new Portfolio();
 
     expect(portfolio.isEmpty()).toBe(true);
+
     const symbol = "NVIDIA";
     const shares = 10;
 
     result = portfolio.applyPurchase(symbol, shares);
-
     expect(portfolio.isEmpty()).toBe(false);
+    expect(portfolio.stocks[symbol]).toBe(10)
   });
+
+  test("Make a sale", ()=>{
+    const portfolio = new Portfolio();
+
+    expect(portfolio.isEmpty()).toBe(true)
+
+    const symbol = "NVIDIA";
+    portfolio.applyPurchase(symbol,10)
+    
+
+    result = portfolio.applySale(symbol,5)
+    expect(portfolio.isEmpty()).toBe(false);
+    expect(portfolio.stocks[symbol]).toBe(5)
+
+  })
 });
