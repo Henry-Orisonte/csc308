@@ -6,4 +6,12 @@ describe("My Portfolio", () => {
 
     expect(portfolio.isEmpty()).toBe(true);
   });
+
+  test("portfolio shall answer whether it is empty", () =>{
+    const portfolio = new Portfolio();
+
+    expect(portfolio.isEmpty()).toBe(true)
+    portfolio.stocks["NVIDIA"] = 10;
+    expect(portfolio.isEmpty()).toBe(false)
+  })
 });
