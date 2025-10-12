@@ -7,11 +7,23 @@ describe("My Portfolio", () => {
     expect(portfolio.isEmpty()).toBe(true);
   });
 
-  test("portfolio shall answer whether it is empty", () =>{
+  test("Portfolio shall answer whether it is empty", () => {
     const portfolio = new Portfolio();
 
-    expect(portfolio.isEmpty()).toBe(true)
-    portfolio.stocks["NVIDIA"] = 10;
-    expect(portfolio.isEmpty()).toBe(false)
-  })
+    expect(portfolio.isEmpty()).toBe(true);
+    portfolio.stocks["APPL"] = 10;
+    expect(portfolio.isEmpty()).toBe(false);
+  });
+
+  test("Make a purchase", () => {
+    const portfolio = new Portfolio();
+
+    expect(portfolio.isEmpty()).toBe(true);
+    const symbol = "NVIDIA";
+    const shares = 10;
+
+    result = portfolio.applyPurchase(symbol, shares);
+
+    expect(portfolio.isEmpty()).toBe(false);
+  });
 });
