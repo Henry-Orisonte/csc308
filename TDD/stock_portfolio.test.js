@@ -41,17 +41,34 @@ describe("My Portfolio", () => {
     expect(portfolio.stocks[symbol]).toBe(5);
   });
 
-  test("Answer the amount of unqiue ticker symbols", ()=> {
+  test("Answer the amount of unqiue ticker symbols", () => {
     const portfolio = new Portfolio();
 
     expect(portfolio.isEmpty()).toBe(true);
 
-    portfolio.applyPurchase("GMR",10)
-    portfolio.applyPurchase("NVIDIA", 5)
+    portfolio.applyPurchase("GMR", 10);
+    portfolio.applyPurchase("NVIDIA", 5);
 
     result = portfolio.uniqueTicker();
 
     expect(portfolio.isEmpty()).toBe(false);
     expect(result).toBe(2);
+  });
+
+  test("Portfolio should keep only owned symbols",() => {
+    const portfolio = new Portfolio();
+
+    expect(portfolio.isEmpty()).toBe(true)
+
+    portfolio.applyPurchase("GMR",10);
+    portfolio.applyPurchase("APPL",5);
+
+    portfolio.applySale("APPL",5);
+
+    portfolio.ownedSymbols();
+
+    expect(portfolio.isEmpty()).toBe(false);
+    expect(portfolio.stocks).toEqual({"GMR":10});
   })
+
 });

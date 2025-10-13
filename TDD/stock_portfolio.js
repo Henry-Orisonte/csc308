@@ -28,6 +28,13 @@ uniqueTicker(){
     }
     return count_ticker;
 }
+ownedSymbols(){
+    for (const symbol in this.stocks){
+        if(this.stocks[symbol] == 0){
+            delete this.stocks[symbol];
+    }
+}
+}
   isEmpty() {
     return Object.keys(this.stocks).length === 0;
   }
