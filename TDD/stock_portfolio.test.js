@@ -71,4 +71,16 @@ describe("My Portfolio", () => {
     expect(portfolio.stocks).toEqual({"GMR":10});
   })
 
+  test("Check how many shares exist for a given symbol", () =>{
+    const portfolio = new Portfolio();
+
+    portfolio.applyPurchase("AAPL", 10);
+
+    const result = portfolio.totalShares("AAPL");
+    expect(result).toBe(10);
+
+    const result2 = portfolio.totalShares("NVIDIA");
+    expect(result2).toBe(0);
+  })
+
 });

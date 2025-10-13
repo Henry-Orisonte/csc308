@@ -35,6 +35,14 @@ ownedSymbols(){
     }
 }
 }
+
+totalShares(symbol){
+    if(this.stocks[symbol]){
+        return this.stocks[symbol]
+    }else{
+        return 0;
+    }
+}
   isEmpty() {
     return Object.keys(this.stocks).length === 0;
   }
