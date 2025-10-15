@@ -95,5 +95,6 @@ describe("My Portfolio", () => {
     expect(portfolio.totalShares("AAPL")).toBe(5);
   });
 });
-
-
+//Yes, I was able to follow the test-first approach. In the beginning it was a little
+// confusing, but as I got used to it I found it to be more tedious than difficult.
+//It's not a proccess that I enjoyed doing, but I understand why we do it.
