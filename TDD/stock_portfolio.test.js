@@ -55,23 +55,23 @@ describe("My Portfolio", () => {
     expect(result).toBe(2);
   });
 
-  test("Portfolio should keep only owned symbols",() => {
+  test("Portfolio should keep only owned symbols", () => {
     const portfolio = new Portfolio();
 
-    expect(portfolio.isEmpty()).toBe(true)
+    expect(portfolio.isEmpty()).toBe(true);
 
-    portfolio.applyPurchase("GMR",10);
-    portfolio.applyPurchase("APPL",5);
+    portfolio.applyPurchase("GMR", 10);
+    portfolio.applyPurchase("APPL", 5);
 
-    portfolio.applySale("APPL",5);
+    portfolio.applySale("APPL", 5);
 
     portfolio.ownedSymbols();
 
     expect(portfolio.isEmpty()).toBe(false);
-    expect(portfolio.stocks).toEqual({"GMR":10});
-  })
+    expect(portfolio.stocks).toEqual({ GMR: 10 });
+  });
 
-  test("Check how many shares exist for a given symbol", () =>{
+  test("Check how many shares exist for a given symbol", () => {
     const portfolio = new Portfolio();
 
     portfolio.applyPurchase("AAPL", 10);
@@ -81,6 +81,19 @@ describe("My Portfolio", () => {
 
     const result2 = portfolio.totalShares("NVIDIA");
     expect(result2).toBe(0);
-  })
+  });
 
+  test("Not possible to sell more shares than you own", () => {
+    const portfolio = new Portfolio();
+
+    portfolio.applyPurchase("AAPL", 5);
+
+    expect(() => {
+      portfolio.applySale("AAPL", 12);
+    }).toThrow("Not possible to sell this number of shares.");
+
+    expect(portfolio.totalShares("AAPL")).toBe(5);
+  });
 });
+
+
