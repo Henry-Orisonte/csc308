@@ -11,7 +11,7 @@ function MyApp() {
       .then((response) => {
         if (response.status === 204) {
           setCharacters((currentCharacters) =>
-            currentCharacters.filter((character) => character.id !== id)
+            currentCharacters.filter((character) => character._id !== id)
           );
         } else if (response.status === 404) {
           console.log("User ID was not found");
@@ -41,19 +41,20 @@ function MyApp() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(person),
-    })
-    .then((response) => {
-    if (response.status === 201) {
-      return response.json(); 
-    } else {
-      throw new Error("Failed to create user");
-    }
-  });
+    }).then((response) => {
+      if (response.status === 201) {
+        return response.json();
+      } else {
+        throw new Error("Failed to create user");
+      }
+    });
   }
 
   function updateList(person) {
     postUser(person)
-      .then((newUser) => setCharacters((currentCharacters) => [...currentCharacters, newUser]))
+      .then((newUser) =>
+        setCharacters((currentCharacters) => [...currentCharacters, newUser])
+      )
       .catch((error) => {
         console.log(error);
       });
