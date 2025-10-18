@@ -59,22 +59,8 @@ app.delete("/users/:id", (req, res) => {
   userServices
     .deleteUserById(userId)
     .then((deleteUser) => {
-      if (!deleteUser) return res.status.send({ error: "User not found" });
+      if (!deleteUser) return res.status(404).send({ error: "User not found" });
       res.status(204).send();
     })
     .catch((err) => res.status(500).send({ error: err.message }));
-});
-
-app.get("/users", (req, res) => {
-  const name = req.query.name;
-  const job = req.query.job;
-
-  if (name !== undefined && job !== undefined) {
-    let result = findUserByNameandJob(name, job);
-    result = { users_list: result };
-    res.send(result);
-  } else {
-    // No filters send -> return every user
-    res.send(User);
-  }
 });
